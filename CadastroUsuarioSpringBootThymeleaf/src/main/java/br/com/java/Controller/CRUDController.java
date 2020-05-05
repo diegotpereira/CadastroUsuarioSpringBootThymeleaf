@@ -47,23 +47,23 @@ public class CRUDController {
         List<User> users=null;
         model.addAttribute("users", new User());
 
-            //Deleting user by id form database
+            //Excluindo usuário por banco de dados de formulário de identificação
             if(status.equals("remove") ){
                userServices.deleteById(user.getId());
             }
 
 
-            //Save and update user to database
+            //Salvar e atualizar o usuário no banco de dados
             if (status.equals("save") ) {
                 userServices.save(user);
             }
 
 
             List <User> userfor=null;
-            //Search Block
+            //Bloco de Pesquisa
 
         if (status.equals("search") ) {
-         //   System.out.println(user.getBirthday().toString().isEmpty());
+
 
             Boolean isUserName=!user.getName().isEmpty();
             Boolean isUserLastName=!user.getLastName().isEmpty();
@@ -73,13 +73,13 @@ public class CRUDController {
 
 
 
-                //Search for ID
+                //Pesquisar por ID
             if (user.getId() != null) {
                 User userid;
                 userid = userServices.getById(user.getId());
                 model.addAttribute("accounts", userid);
                 return "users";
-                // end of search fot ID
+                // fim da pesquisa por ID
 
             } else {
 
@@ -88,7 +88,7 @@ public class CRUDController {
                 if (isUserName){
                     users=userServices.getByName(user.getName());
 
-                }//IsUsername
+                }//Seu Nome de Usuario
 
                     if (isUserLastName){
                         if (users==null)
@@ -101,9 +101,9 @@ public class CRUDController {
                         users.clear();
                         users=new ArrayList<>(userleve1);
                         userleve1.clear();
-                    } //end of last name fillter
+                    } //filtro do sobrenome
 
-                    // start to fillter for Parent
+                    // começar a preencher filtro para Pais
                     if (isUserParent){
                         if (users==null)
                             users=userRepository.findAllByParentname(user.getParentname());
@@ -115,9 +115,9 @@ public class CRUDController {
                         users.clear();
                         users=new ArrayList<>(userleve1);
                         userleve1.clear();
-                }//end of Parent
+                }//fim dos pais
 
-                        //start birthday
+                        //começar aniversário
                     if (user.getBirthday()!=null){
                         if (users==null)
                             users=userRepository.findAllByBirthday( user.getBirthday() );
@@ -129,8 +129,8 @@ public class CRUDController {
                         users.clear();
                         users=new ArrayList<>(userleve1);
                         userleve1.clear();
-                    } //end of Birthday fillter
-
+                    } //final do preenchimento de aniversário
+                    
                     if (isUserNumber){
                         if (users==null)
                             users=userRepository.findAllByNumber(user.getNumber());
@@ -142,7 +142,7 @@ public class CRUDController {
                         users.clear();
                         users=new ArrayList<>(userleve1);
                         userleve1.clear();
-                    } //end of number
+                    } //fim do número
 
 
                     if (isUserAdress){
@@ -156,7 +156,7 @@ public class CRUDController {
                         users.clear();
                         users=new ArrayList<>(userleve1);
                         userleve1.clear();
-                    } //end of address fillter
+                    } //preenchimento de endereço
 
 
 
@@ -166,7 +166,7 @@ public class CRUDController {
         }
 
 
-    }//go main page
+    }//ir página principal
         return "redirect:/accounts";
     }
 
